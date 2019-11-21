@@ -1,7 +1,8 @@
-package com.sserdiuk.topreddit
+package com.sserdiuk.topreddit.screens.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.sserdiuk.topreddit.R
 
 class MainActivity : AppCompatActivity() {
 
