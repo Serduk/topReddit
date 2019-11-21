@@ -10,5 +10,5 @@ interface RedditApi {
      * Fetch TOP posts with limit
      * */
     @GET("r/politics/top.json?limit={limit}")
-    fun getTopWithLimit(@Path("limit") limit: String) : Call<List<PostModel>>
+    fun fetchTopWithLimit(@Path("limit") limit: String) : Call<List<PostModel>>
 }
