@@ -1,6 +1,8 @@
 package com.sserdiuk.topreddit.data.remote.model
 
+import com.sserdiuk.topreddit.data.local.entity.PostEntity
+
 data class RedditApiResponse(
     val page: String,
-    val results: List<PostModel>
+    val results: List<PostEntity>
 )

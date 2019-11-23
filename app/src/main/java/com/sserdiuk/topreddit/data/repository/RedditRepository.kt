@@ -37,7 +37,7 @@ class RedditRepository(
                 return redditApiService.fetchTopWithLimit(10.toString())
                     .flatMap { movieApiResponse ->
                         Observable.just(
-                            if (movieApiResponse == null) Resource.error("", RedditApiResponse(1.toString(), emptyList(), 0, 1))
+                            if (movieApiResponse == null) Resource.error("", RedditApiResponse(1.toString(), emptyList()))
                             else Resource.success(movieApiResponse)
                         )
                     }
