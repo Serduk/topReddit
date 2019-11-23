@@ -24,7 +24,7 @@ class DbModule {
 
 
     /*
-     * We need the MovieDao module.
+     * We need the PostDao module.
      * For this, We need the AppDatabase object
      * So we will define the providers for this here in this module.
      * */
