@@ -29,5 +29,5 @@ internal abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(RedditListViewModel::class)
-    protected abstract fun movieListViewModel(moviesListViewModel: RedditListViewModel): ViewModel
+    protected abstract fun postListViewModel(moviesListViewModel: RedditListViewModel): ViewModel
 }

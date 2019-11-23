@@ -30,7 +30,7 @@ class DbModule {
      * */
     @Provides
     @Singleton
-    internal fun provideMovieDao(appDatabase: AppDatabase): PostDao {
+    internal fun providePostDao(appDatabase: AppDatabase): PostDao {
         return appDatabase.postDao()
     }
 }

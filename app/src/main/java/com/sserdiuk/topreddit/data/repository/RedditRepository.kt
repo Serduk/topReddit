@@ -6,6 +6,7 @@ import com.sserdiuk.topreddit.data.local.dao.PostDao
 import com.sserdiuk.topreddit.data.local.entity.PostEntity
 import com.sserdiuk.topreddit.data.remote.api.RedditApiService
 import com.sserdiuk.topreddit.data.remote.model.RedditApiResponse
+import com.sserdiuk.topreddit.utils.Constants
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import javax.inject.Singleton
@@ -34,7 +35,7 @@ class RedditRepository(
             }
 
             override fun createCall(): Observable<Resource<RedditApiResponse>> {
-                return redditApiService.fetchTopWithLimit(10.toString())
+                return redditApiService.fetchTopWithLimit(Constants.LIMIT)
                     .flatMap { movieApiResponse ->
                         Observable.just(
                             if (movieApiResponse == null) Resource.error("", RedditApiResponse(1.toString(), emptyList()))

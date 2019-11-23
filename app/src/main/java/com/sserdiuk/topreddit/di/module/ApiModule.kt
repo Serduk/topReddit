@@ -20,9 +20,6 @@ import javax.inject.Singleton
 @Module
 class ApiModule {
 
-    /*
-     * The method returns the Gson object
-     * */
     @Provides
     @Singleton
     internal fun provideGson(): Gson {
@@ -30,10 +27,6 @@ class ApiModule {
         return gsonBuilder.create()
     }
 
-
-    /*
-     * The method returns the Cache object
-     * */
     @Provides
     @Singleton
     internal fun provideCache(application: Application): Cache {
@@ -42,10 +35,6 @@ class ApiModule {
         return Cache(httpCacheDirectory, cacheSize)
     }
 
-
-    /*
-     * The method returns the Okhttp object
-     * */
     @Provides
     @Singleton
     internal fun provideOkhttpClient(cache: Cache): OkHttpClient {
@@ -61,31 +50,25 @@ class ApiModule {
         return httpClient.build()
     }
 
-
-    /*
-     * The method returns the Retrofit object
-     * */
     @Provides
     @Singleton
-    internal fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
+    internal fun provideRetrofit(
+        gson: Gson,
+        baseUrl: String,
+        okHttpClient: OkHttpClient
+    ): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
     }
 
-
-    /*
-     * We need the MovieApiService module.
-     * For this, We need the Retrofit object, Gson, Cache and OkHttpClient .
-     * So we will define the providers for these objects here in this module.
-     *
-     * */
     @Provides
     @Singleton
-    internal fun provideMovieApiService(retrofit: Retrofit): RedditApiService {
+    internal fun provideRedditApiService(retrofit: Retrofit): RedditApiService {
         return retrofit.create(RedditApiService::class.java)
     }
 }

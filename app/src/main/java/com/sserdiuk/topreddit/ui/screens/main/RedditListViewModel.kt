@@ -14,23 +14,23 @@ class RedditListViewModel @Inject constructor(
     redditApiService: RedditApiService
 ) : ViewModel() {
 
-    /* You can see we are initialising the MovieRepository class here */
-    private val movieRepository: RedditRepository = RedditRepository(postsDao, redditApiService)
+    /* You can see we are initialising the RedditRepository class here */
+    private val redditRepository: RedditRepository = RedditRepository(postsDao, redditApiService)
 
     /* We are using LiveData to update the UI with the data changes.
      */
-    private val moviesListLiveData = MutableLiveData<Resource<List<PostEntity>>>()
+    private val redditListLiveData = MutableLiveData<Resource<List<PostEntity>>>()
 
     /*
      * Method called by UI to fetch movies list
      * */
-    fun loadMoreMovies() {
-        movieRepository.loadPosts()
-            .subscribe { resource -> getMoviesLiveData().postValue(resource) }
+    fun loadMorePosts() {
+        redditRepository.loadPosts()
+            .subscribe { resource -> getRedditLiveData().postValue(resource) }
     }
 
     /*
      * LiveData observed by the UI
      * */
-    fun getMoviesLiveData() = moviesListLiveData
+    fun getRedditLiveData() = redditListLiveData
 }
