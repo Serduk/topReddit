@@ -1,4 +1,4 @@
-package com.sserdiuk.topreddit.screens
+package com.sserdiuk.topreddit.ui.screens
 
 import androidx.appcompat.app.AppCompatActivity
 

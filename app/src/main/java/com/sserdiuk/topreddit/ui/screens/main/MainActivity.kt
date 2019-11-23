@@ -1,13 +1,13 @@
-package com.sserdiuk.topreddit.screens.details
+package com.sserdiuk.topreddit.ui.screens.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.sserdiuk.topreddit.R
 
-class DetailsActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
+        setContentView(R.layout.activity_main)
     }
 }

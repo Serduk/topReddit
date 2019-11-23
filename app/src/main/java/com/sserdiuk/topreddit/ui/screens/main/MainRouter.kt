@@ -1,4 +1,4 @@
-package com.sserdiuk.topreddit.screens.main
+package com.sserdiuk.topreddit.ui.screens.main
 
 import com.sserdiuk.topreddit.Router
 
