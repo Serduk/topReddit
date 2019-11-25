@@ -9,6 +9,6 @@ interface RedditApiService {
     /**
      * Fetch TOP posts with limit
      * */
-    @GET("r/politics/top.json?limit={limit}")
+    @GET("r/all/top.json?limit={limit}")
     fun fetchTopWithLimit(@Path("limit") limit: String) : Observable<RedditApiResponse>
 }
