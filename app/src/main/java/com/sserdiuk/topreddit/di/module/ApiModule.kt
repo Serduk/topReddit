@@ -4,7 +4,6 @@ import android.app.Application
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.sserdiuk.topreddit.data.remote.api.RedditApiService
-import com.sserdiuk.topreddit.data.remote.interceptor.RequestInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -44,7 +43,6 @@ class ApiModule {
         val httpClient = OkHttpClient.Builder()
         httpClient.cache(cache)
         httpClient.addInterceptor(logging)
-        httpClient.addNetworkInterceptor(RequestInterceptor())
         httpClient.connectTimeout(30, TimeUnit.SECONDS)
         httpClient.readTimeout(30, TimeUnit.SECONDS)
         return httpClient.build()
