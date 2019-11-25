@@ -23,7 +23,10 @@ data class PostEntity(
     val commentsCount: Int,
 
     @SerializedName(value = "created", alternate = ["date_creation"])
-    val created: String
+    val created: String,
+
+    @SerializedName(value = "pathToImage", alternate = ["imageUrl", "img"])
+    val pathToImage: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
@@ -31,6 +34,7 @@ data class PostEntity(
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
+        parcel.readString(),
         parcel.readString()
     )
 
@@ -40,6 +44,8 @@ data class PostEntity(
         writeString(author)
         writeString(thumbnail)
         writeInt(commentsCount)
+        writeString(created)
+        writeString(pathToImage)
     }
 
     override fun describeContents(): Int {
