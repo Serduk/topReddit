@@ -12,6 +12,9 @@ import com.sserdiuk.topreddit.data.local.entity.PostEntity
 
 class PostItemAdapter(val clickListener: ListItemClickListener) :
     RecyclerView.Adapter<PostItemAdapter.ViewHolder>() {
+    interface ListItemClickListener {
+        fun onItemClick(position: Int)
+    }
     private var result: List<PostEntity> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,10 +37,6 @@ class PostItemAdapter(val clickListener: ListItemClickListener) :
         notifyDataSetChanged()
     }
 
-    interface ListItemClickListener {
-        fun onItemClick(position: Int)
-    }
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         override fun onClick(v: View?) {
@@ -58,7 +57,7 @@ class PostItemAdapter(val clickListener: ListItemClickListener) :
             author.text = item.author
             Picasso
                 .get()
-                .load(item.pathToImage)
+                .load(item.thumbnail)
                 .error(R.drawable.ic_launcher_foreground)
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(image)

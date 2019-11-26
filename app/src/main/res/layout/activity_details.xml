@@ -19,11 +19,12 @@
         android:layout_height="wrap_content"
         android:padding="8dp" />
 
-    <TextView
+    <ImageView
         android:id="@+id/thumbnail"
         style="@style/BodyTextItemInList"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
         android:padding="8dp" />
 
     <TextView

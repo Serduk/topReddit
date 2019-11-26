@@ -1,11 +1,9 @@
 package com.sserdiuk.topreddit.di.component
 
 import android.app.Application
-import com.sserdiuk.topreddit.ui.AppController
-import com.sserdiuk.topreddit.di.module.ActivityModule
-import com.sserdiuk.topreddit.di.module.ApiModule
-import com.sserdiuk.topreddit.di.module.DbModule
+import com.sserdiuk.topreddit.di.module.*
 import com.sserdiuk.topreddit.di.module.ViewModelModule
+import com.sserdiuk.topreddit.ui.AppController
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
@@ -17,7 +15,8 @@ import javax.inject.Singleton
         DbModule::class,
         ViewModelModule::class,
         ActivityModule::class,
-        AndroidSupportInjectionModule::class]
+        AndroidSupportInjectionModule::class,
+        ApplicationModule::class]
 )
 @Singleton
 interface AppComponent {
@@ -28,5 +27,6 @@ interface AppComponent {
 
         fun build(): AppComponent
     }
+
     fun inject(appController: AppController)
 }

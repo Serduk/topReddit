@@ -1,8 +1,8 @@
 package com.sserdiuk.topreddit.data.remote.model
 
-import com.sserdiuk.topreddit.data.local.entity.PostEntity
+import com.google.gson.annotations.SerializedName
 
 data class RedditApiResponse(
-    val page: String,
-    val results: List<PostEntity>
+    @SerializedName("data")
+    val data: Data
 )

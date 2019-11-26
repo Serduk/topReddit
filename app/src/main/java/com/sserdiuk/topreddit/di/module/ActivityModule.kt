@@ -9,4 +9,5 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector()
     abstract fun contributeMainActivity(): MainActivity
+
 }

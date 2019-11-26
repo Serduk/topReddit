@@ -21,8 +21,8 @@ class Resource<T> private constructor(val status: Status, val data: T?, val mess
             return Resource(SUCCESS, data, null)
         }
 
-        fun <T> error(msg: String, data: T?): Resource<T> {
-            return Resource(ERROR, data, msg)
+        fun <T> error(msg: String): Resource<T> {
+            return Resource(ERROR, null, msg)
         }
 
         fun <T> loading(data: T?): Resource<T> {

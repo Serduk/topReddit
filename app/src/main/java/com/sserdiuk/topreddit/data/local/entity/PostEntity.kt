@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 @Entity(primaryKeys = ["id"])
 data class PostEntity(
     @SerializedName("id")
-    val id: Long,
+    val id: String,
 
     @SerializedName(value = "header", alternate = ["title", "name"])
     val title: String,
@@ -23,29 +23,24 @@ data class PostEntity(
     val commentsCount: Int,
 
     @SerializedName(value = "created", alternate = ["date_creation"])
-    val created: String,
-
-    @SerializedName(value = "pathToImage", alternate = ["imageUrl", "img"])
-    val pathToImage: String?
+    val created: Double
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readLong(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
-        parcel.readString(),
-        parcel.readString()
+        parcel.readDouble()
     )
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeLong(id)
+        writeString(id)
         writeString(title)
         writeString(author)
         writeString(thumbnail)
         writeInt(commentsCount)
-        writeString(created)
-        writeString(pathToImage)
+        writeDouble(created)
     }
 
     override fun describeContents(): Int {

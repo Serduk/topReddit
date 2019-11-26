@@ -2,25 +2,24 @@ package com.sserdiuk.topreddit.data
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
-import io.reactivex.Flowable
-import io.reactivex.Observable
+import com.sserdiuk.topreddit.data.local.entity.PostEntity
+import com.sserdiuk.topreddit.data.remote.model.RedditApiResponse
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 abstract class NetworkBoundResource<ResultType, RequestType> @MainThread
 protected constructor() {
-    private val asObservable: Observable<Resource<ResultType>>
+    private val asObservable: Single<Resource<ResultType>>
 
     init {
-        val source: Observable<Resource<ResultType>>
+        val source: Single<Resource<ResultType>>
         if (shouldFetch()) {
             source = createCall()
                 .subscribeOn(Schedulers.io())
-                .doOnNext {
-                    saveCallResult(processResponse(it)!!)
-                }
+                .doOnSuccess { saveCallResult(processResponse(it)!!) }
                 .flatMap {
-                    loadFromDb().toObservable()
+                    loadFromDb()
                         .map {
                             Resource.success(it)
                         }
@@ -29,27 +28,24 @@ protected constructor() {
                     onFetchFailed()
                 }
                 .onErrorResumeNext { t: Throwable ->
-                    loadFromDb().toObservable().map {
-                        Resource.error(t.message!!, it)
+                    loadFromDb().map {
+                        Resource.error<ResultType>(t.message!!)
                     }
                 }
                 .observeOn(AndroidSchedulers.mainThread())
         } else {
             source = loadFromDb()
-                .toObservable()
                 .map { Resource.success(it) }
         }
 
-        asObservable = Observable.concat(
+        asObservable = Single.concat(
             loadFromDb()
-                .toObservable()
-                .map { Resource.loading(it) }
-                .take(1),
+                .map { Resource.loading(it) },
             source
-        )
+        ).firstOrError()
     }
 
-    fun getAsObservable(): Observable<Resource<ResultType>> {
+    fun getAsSingle(): Single<Resource<ResultType>> {
         return asObservable
     }
 
@@ -67,8 +63,8 @@ protected constructor() {
     protected abstract fun shouldFetch(): Boolean
 
     @MainThread
-    protected abstract fun loadFromDb(): Flowable<ResultType>
+    protected abstract fun loadFromDb(): Single<ResultType>
 
     @MainThread
-    protected abstract fun createCall(): Observable<Resource<RequestType>>
+    protected abstract fun createCall(): Single<Resource<RequestType>>
 }
